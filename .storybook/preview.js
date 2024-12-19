@@ -1,0 +1,15 @@
+import { withViewport } from '@storybook/addon-viewport';
+
+// Matchers for controls
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
