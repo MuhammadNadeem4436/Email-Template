@@ -10,6 +10,8 @@ const EmailTemplate = ({
   themeColor,
   borderWidth,
   padding,
+  borderStyle,
+  fontSize,
   rows,
 }) => {
   return (
@@ -18,7 +20,9 @@ const EmailTemplate = ({
       style={{
         borderColor: themeColor,
         borderWidth: `${borderWidth}px`,
+        borderStyle,
         padding,
+        fontSize: `${fontSize}px`,
       }}
     >
       {/* Header */}
@@ -57,6 +61,8 @@ EmailTemplate.propTypes = {
   themeColor: PropTypes.string,
   borderWidth: PropTypes.number,
   padding: PropTypes.string,
+  borderStyle: PropTypes.oneOf(['solid', 'dashed', 'dotted']),
+  fontSize: PropTypes.number,
   rows: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string })),
 };
 
@@ -68,6 +74,8 @@ EmailTemplate.defaultProps = {
   themeColor: '#007bff',
   borderWidth: 2,
   padding: '10px',
+  borderStyle: 'solid',
+  fontSize: 16,
   rows: [],
 };
 

@@ -1,29 +1,30 @@
 import React from 'react';
 import EmailTemplate from '../EmailTemplate';
-import { background } from 'storybook/internal/theming';
-import { action } from '@storybook/addon-actions'
-import { Docs, Meta } from '@storybook/addon-docs';
+import { action } from '@storybook/addon-actions';
 
 export default {
     title: 'Components/EmailTemplate',
     component: EmailTemplate,
     tags: ['autodocs'],
-    // parameters:{
-    //     docs : {
-    //         description: {
-    //             component: "Email Template"
-    //         }
-    //     }
-    // },
     argTypes: {
         themeColor: { control: 'color' },
         headerText: { control: 'text' },
         bodyText: { control: 'text' },
         footerText: { control: 'text' },
         imageUrl: { control: 'text' },
+        rows: { control: 'array' },
+        borderWidth: { control: 'number', defaultValue: 2 },
+        padding: { control: 'text', defaultValue: '10px' },
+        borderStyle: { control: 'select', options: ['solid', 'dashed', 'dotted'], defaultValue: 'solid' },
+        fontSize: { control: 'number', defaultValue: 16 },
     },
 };
-const Template = (args) => <EmailTemplate {...args} />;
+
+const Template = (args) => (
+    <div>
+        <EmailTemplate {...args} />
+    </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -33,9 +34,11 @@ Default.args = {
     themeColor: '#007bff',
     imageUrl: 'https://via.placeholder.com/600x200',
     rows: [
+        { text: 'Row 1' },
         { text: 'Row 2' },
-    ]
-
+    ],
+    borderStyle: 'solid',
+    fontSize: 16,
 };
 
 export const CustomColors = Template.bind({});
@@ -50,78 +53,78 @@ WithoutImage.args = {
     imageUrl: '',
 };
 
-// Theme Story 
-
 export const DarkMode = Template.bind({});
 DarkMode.args = {
     ...Default.args,
-    headerText: 'Dark Mode Enable',
-    bodyText: 'This is an template designed for dark mode',
-    footerText: 'switch to dark mode for batter readability at night',
+    headerText: 'Dark Mode Enabled',
+    bodyText: 'This is a template designed for dark mode.',
+    footerText: 'Switch to dark mode for better readability at night.',
     themeColor: '#333',
 };
 DarkMode.parameters = {
     backgrounds: {
-        default: 'dark'
+        default: 'dark',
     },
-}
-
-// Dynamic Row and Headers 
+};
 
 export const DynamicLayout = Template.bind({});
 DynamicLayout.args = {
-    headerText: 'Custome Header and Rows',
-    bodyText: 'In this story you can add rows',
-    footerText: 'You can also modifiy me',
+    headerText: 'Custom Header and Rows',
+    bodyText: 'In this story, you can add rows dynamically.',
+    footerText: 'You can also modify me.',
     themeColor: '#0d6efd',
     rows: [
-        { text: 'Muhammad Nadeem' },
-    ]
-}
+        { text: 'Row 1' },
+        { text: 'Row 2' },
+    ],
+    borderStyle: 'dashed',
+};
 DynamicLayout.argTypes = {
     headerText: { control: 'text' },
     bodyText: { control: 'text' },
     footerText: { control: 'text' },
-    rows: { control: 'array' }
+    rows: { control: 'array' },
 };
-DynamicLayout.parameters = {
-    a11ly: {
-        disable: false,
-    }
-}
 
 export const CustomizedLayout = Template.bind({});
 CustomizedLayout.args = {
     ...Default.args,
-    headerText: 'Customized layout',
-    bodyText: 'you can modify border color paddings',
-    footerText: 'adjust to fit the layout',
+    headerText: 'Customized Layout',
+    bodyText: 'You can modify the border color and paddings.',
+    footerText: 'Adjust to fit the layout.',
     themeColor: '#f39c12',
-}
-
+    borderStyle: 'dotted',
+    fontSize: 18,
+};
 CustomizedLayout.argTypes = {
     themeColor: { control: 'color' },
-    borderWidth: { control: 'number', defaultValue: 2 },
-    padding: { control: 'text', defaultValue: '10px' }
-}
+    borderWidth: { control: 'number' },
+    padding: { control: 'text' },
+    borderStyle: { control: 'select' },
+    fontSize: { control: 'number' },
+};
 
 export const Actions = Template.bind({});
 Actions.args = {
     ...Default.args,
     headerText: 'Click the Button',
-    bodyText: "Test actions by intrecting with element"
+    bodyText: 'Test actions by interacting with elements.',
 };
 Actions.decorators = [
     (Story) => (
         <div>
             {Story()}
-            <button onClick={action('botton Cliked')}>Test Action</button>
+            <button onClick={action('button-clicked')}>Test Action</button>
+            <input
+                type="text"
+                placeholder="Type here"
+                onChange={action('input-changed')}
+            />
+            <select onChange={action('select-changed')}>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
         </div>
-    )
-]
-
-
-
-
-
-
+    ),
+];
